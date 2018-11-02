@@ -80,6 +80,8 @@ void linknode(t_node_p root, t_node_p left, t_node_p right)
 stack_p initstack()
 {
     stack_p ins = (stack_p)malloc(sizeof(s_node));
+    ins->top = NULL;
+    return ins;
 } 
 
 void pushstack(stack_p s, t_node_p t)
