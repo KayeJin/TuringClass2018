@@ -21,21 +21,5 @@ void preorder(node_p root);//recursion
 void postorder(node_p root);
 void inorder(node_p root);
 
-//the recursion has finished , and now begin the iteration
-
-typedef struct i_stack* i_stack_p;
-
-typedef struct i_stack
-{
-    node_p top;
-}i_stack;
-
-i_stack_p initstack();
-void pushstack(i_stack_p s,int data);
-node_p  popstack(i_stack_p s);
-int* i_preorder(node_p root ,i_stack_p s,int len);
-int* i_postorder(node_p root ,i_stack_p s,int len);
-int* i_inorder(node_p root , i_stack_p s,int len);
-
 
 #endif
