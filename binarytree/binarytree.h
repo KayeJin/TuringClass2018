@@ -1,10 +1,10 @@
 #ifndef binarytree
 #define binarytree
 
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
-
 typedef struct node* node_p ;
 
 typedef struct node
