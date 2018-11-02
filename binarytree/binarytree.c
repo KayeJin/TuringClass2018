@@ -56,7 +56,7 @@ void pushstack(i_stack_p s,int data)
     s->top = newnode;
 }
 
-node_p i_popstack(i_stack_p s)
+node_p popstack(i_stack_p s)
 {
     if(s->top == NULL)
     {
