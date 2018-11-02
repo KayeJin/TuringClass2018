@@ -56,21 +56,84 @@ void pushstack(i_stack_p s,int data)
     s->top = newnode;
 }
 
-int popstack(i_stack_p s)
+i_node_p popstack(i_stack_p s)
 {
     if(s->top == NULL)
     {
         assert(1);
     }
-    int key = s->top->data;
-    int temp = s->top->next;
-    free(s->top);
-    s->top = temp;
-    return key;
+    i_node_p temp = s->top;
+    s->top = temp->next;
+    return temp;
+
 }
 
-int* preorder(node_p root,i_stack_p s)
+int* preorder(node_p root,i_stack_p s,int len)
 {
-
+    int p=0;
+    int* array = (int*) malloc(sizeof(int)*len);
+    while(s->top != NULL )
+    {
+        if(root != NULL)
+        {
+            array[p]=root;
+            p++;
+            pushstack(s,root->data);
+            root = root->left;
+        }else
+        {
+            i_node_p node = popstack(s);
+            root = node->right;
+        }
+    }
+    return array;
 }
+
+int* inorder(node_p root,i_stack_p s,int len)
+{
+    int* array = (int*) malloc(sizeof(int)*len);
+    int p=0;
+    while(p != len)
+    {
+        if(root->left != NULL)
+        {
+            pushstack(s,root->data);
+            root = root->left;
+        }else
+        {
+            array[p] = root->data;
+            p++;
+            if(root->right == NULL)
+            {
+                if(s->top == NULL)
+                {
+                    assert(1);
+                }
+                i_node_p node = popstack(s);
+                array[p] = node->data;
+                root = node->right;
+            }
+
+        }
+    }
+    return array;
+}
+
+int* postorder(node_p root , i_stack_p s, int len)//two ways
+{
+    int* array=(int*)malloc(sizeof(int)*len);
+    int p=0;
+    pushstack(s,root->data);
+    while(p != len)
+    {
+        i_stack_p node = popstack(s);
+        array[p]=node->data;
+        p++;
+        root = node;
+        if(root->left != NULL) pushstack(s,root->left->data);
+        if(root->right != NULL) pushstack(s,root->right->data);
+    }
+    return array;
+}
+
 

@@ -13,13 +13,30 @@ int main()
     linknode(root,left1,right1);
     linknode(left1,left1left,left1right);
     linknode(right1,right1left,right1right);
-
+    //build and link a tree
     preorder(root);
     printf("\n");
     postorder(root);
     printf("\n");
     inorder(root);
-
+    //the recursion has finished , and the iterstion begin
+    
+    i_stack_p ins = initstack();
+    int* array1 = preorder(root,ins,7);
+    int* array2 = postorder(root,ins,7);
+    int* array3 = inorder(root,ins,7);
+    for(int t = 0;t<7;t++)
+    {
+        printf("%d ",array1[t]);
+    }
+    for(int t = 0;t<7;t++)
+    {
+        printf("%d ",array2[t]);
+    }
+    for(int t = 0;t < 7;t++)
+    {
+        printf("%d ",array3[t]);
+    }
     return 0;
 }
 
