@@ -1,5 +1,4 @@
 #include "binarytree.h"
-
 r_node_p buildtree(int data)
 {
     r_node_p newnode = (r_node_p) malloc(sizeof(r_node));
