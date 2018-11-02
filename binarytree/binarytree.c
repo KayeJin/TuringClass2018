@@ -1,12 +1,12 @@
 #include "binarytree.h"
 node_p buildtree(int data)
 {
-    node_p newnode = (node_p) malloc(sizeof(node));
-    newnode->left = NULL;
-    newnode->right = NULL;
-    newnode->data = data;
+    node_p treenode = (node_p) malloc(sizeof(node));
+    treenode->left = NULL;
+    treenode->right = NULL;
+    treenode->data = data;
 
-    return newnode;
+    return treenode;
 }
 void linknode(node_p root, node_p left, node_p right)
 {
@@ -43,13 +43,34 @@ i_stack_p initstack()
     i_stack_p ins = (i_stack_p)malloc(sizeof(i_stack));
     if(ins == NULL)
     {
-        assert(0);
+        assert(1);
     }
     ins->top = NULL;
 }
 void pushstack(i_stack_p s,int data)
 {
     i_node_p newnode = (i_node_p) malloc (sizeof(i_node)); 
-    newnode
+    newnode->data = data;
+    newnode->next = s->top;
+
+    s->top = newnode;
+}
+
+int popstack(i_stack_p s)
+{
+    if(s->top == NULL)
+    {
+        assert(1);
+    }
+    int key = s->top->data;
+    int temp = s->top->next;
+    free(s->top);
+    s->top = temp;
+    return key;
+}
+
+int* preorder(node_p root,i_stack_p s)
+{
+
 }
 
