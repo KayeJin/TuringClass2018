@@ -33,7 +33,7 @@ typedef struct i_stack
 i_stack_p initstack();
 void pushstack(i_stack_p s,int data);
 node_p  popstack(i_stack_p s);
-int* i_perorder(node_p root ,i_stack_p s,int len);
+int* i_preorder(node_p root ,i_stack_p s,int len);
 int* i_postorder(node_p root ,i_stack_p s,int len);
 int* i_inorder(node_p root , i_stack_p s,int len);
 
