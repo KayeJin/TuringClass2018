@@ -22,9 +22,9 @@ int main()
     //the recursion has finished , and the iterstion begin
     
     i_stack_p ins = initstack();
-    int* array1 = preorder(root,ins,7);
-    int* array2 = postorder(root,ins,7);
-    int* array3 = inorder(root,ins,7);
+    int* array1 = i_preorder(root,ins,7);
+    int* array2 = i_postorder(root,ins,7);
+    int* array3 = i_inorder(root,ins,7);
     for(int t = 0;t<7;t++)
     {
         printf("%d ",array1[t]);
