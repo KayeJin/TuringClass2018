@@ -215,4 +215,46 @@ void treeEndVisit2(tnode_p root)
     stackDestory(st);
 }
 
+tnode_p BuildTree(tnode_p root,int data,int floor)
+{
+    if(floor <= 0 )return NULL;
+    root = (tnode_p)malloc(sizeof(tnode));
+    root->data = data;
+    root->visited = 1;
+    root->left = BuildTree(root->left,data*2,floor-1);
+    root->right = BuildTree(root->right,data*2+1,floor-1);
+    return root;
+} 
+
+void destroyTree(tnode_p root)
+{
+    if(!root) return;
+    destroyTree(root->left);
+    destroyTree(root->right);
+    free(root);
+    root = NULL;
+}
+
+int main()
+{
+    tnode_p root = NULL;
+    root = BuildTree(root,1,4);
+
+    treeFrontVisit1(root);
+    printf("\n");
+    treeFrontVisit3(root);
+    printf("\n");
+    printf("\n");
+    treeMiddleVisit1(root);
+    printf("\n");
+    treeMiddleVisit2(root);
+    printf("\n");
+    printf("\n");
+    treeEndVisit1(root);
+    printf("\n");
+    treeEndVisit2(root);
+    printf("\n");
+
+    return 0;
+}
 #endif
