@@ -1,4 +1,4 @@
-/*#include<stdio.h>
+#include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 
@@ -65,7 +65,7 @@ void linknode(tnode_p root, tnode_p left, tnode_p right)
 {
     root->left = left;
     root->right = right;
-}*/
+}
 stack_p initstack()
 {
     stack_p ins = (stack_p)malloc(sizeof(snode));
