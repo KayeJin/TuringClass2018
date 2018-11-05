@@ -36,7 +36,6 @@ int stackIsEmpty(snode_p head);
 
 void stackDestory(snode_p head);
 
-
 void newChecker(unsigned char num);
 
 int checkVisited(tnode_p node);
@@ -44,6 +43,8 @@ int checkVisited(tnode_p node);
 void visit(tnode_p node);
 
 void treeFrontVisit1(tnode_p root);
+
+//void treeFrontVisit2(tnode_p root);
 
 void treeFrontVisit3(tnode_p root);
  

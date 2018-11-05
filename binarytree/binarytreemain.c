@@ -7,6 +7,8 @@ int main()
 
     treeFrontVisit1(root);
     printf("\n");
+//    treeFrontVisit2(root);
+//    printf("\n");
     treeFrontVisit3(root);
     printf("\n");
     printf("\n");
