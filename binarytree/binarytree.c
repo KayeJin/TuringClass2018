@@ -68,10 +68,8 @@ void treeFrontVisit1(tnode_p root)
 {
     snode_p st = stackBuild();
     newChecker(root->visited);
-
     tnode_p temp = root;
     st = stackPush(st,root);
-
     while(!stackIsEmpty(st))
     {
         if(!checkVisited(temp)) visit(temp);
@@ -133,7 +131,7 @@ void treeMiddleVisit2(tnode_p root)
     newChecker(root->visited);
 
     tnode_p temp = root;
-    st = stackPush(st,root);
+    st = stackPush(st,root->right);
     while(!stackIsEmpty(st))
     {
         while(temp->left && !checkVisited(temp->left))
@@ -212,4 +210,3 @@ void destroyTree(tnode_p root)
     free(root);
     root = NULL;
 }
-
