@@ -1,19 +1,6 @@
 #include "binarytree.h"
 
-typedef struct tnode
-{
-    tnode_p left;
-    tnode_p right;
-    unsigned char visited;
-    int data;
-}tnode;
-
-typedef struct snode
-{
-    tnode_p p_data;
-    snode_p next;
-}snode;
-
+unsigned char checkers = 0;
 snode_p stackBuild()
 {
     return NULL;
@@ -21,7 +8,7 @@ snode_p stackBuild()
 
 snode_p stackPush(snode_p head,tnode_p tdata)
 {
-    snode_p newnode = (snode_P)malloc(sizeof(snode));
+    snode_p newnode=(snode_p)malloc(sizeof(snode));
 
     newnode->p_data = tdata;
     newnode->next = head;
@@ -31,7 +18,7 @@ snode_p stackPush(snode_p head,tnode_p tdata)
 
 tnode_p stackTop(snode_p head)
 {
-    return head->node;
+    return head->p_data;
 }
 
 snode_p stackPop(snode_p head)
@@ -52,22 +39,21 @@ void stackDestory(snode_p head)
     while(head) stackPop(head);
 }
 
-unsigned char  checker = 0;
 
 void newChecker(unsigned char num)
 {
-   checker = num+1;
+   checkers = num+1;
 }
 
 int checkVisited(tnode_p node)
 {
-    return node->visited == checker;
+    return node->visited == checkers;
 }
 
 void visit(tnode_p node)
 {
-    printf("%d ",n->data);
-    n->visited++;
+    printf("%d ",node->data);
+    node->visited++;
 }
 
 void treeFrontVisit1(tnode_p root)
@@ -135,7 +121,7 @@ void treeFrontVisit3(tnode_p root)
 
 void treeMiddleVisit1(tnode_p root)
 {
-    if(!n) return ;
+    if(!root) return ;
     treeMiddleVisit1(root->left);
     visit(root);
     treeMiddleVisit1(root->right);
@@ -152,7 +138,7 @@ void treeMiddleVisit2(tnode_p root)
     {
         while(temp->left && !checkVisited(temp->left))
         {
-            st =stackPush(st,tmp);
+            st =stackPush(st,temp);
             temp = temp->left;
         }
         visit(temp);
@@ -174,7 +160,7 @@ void treeEndVisit1(tnode_p root)
     if(!root)return ;
     treeEndVisit1(root->left);
     treeEndVisit1(root->right);
-    visit(n);
+    visit(root);
 }
 
 void treeEndVisit2(tnode_p root)

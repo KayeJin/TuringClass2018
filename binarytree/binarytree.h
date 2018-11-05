@@ -36,7 +36,6 @@ int stackIsEmpty(snode_p head);
 
 void stackDestory(snode_p head);
 
-unsigned char  checker = 0;
 
 void newChecker(unsigned char num);
 
