@@ -184,9 +184,15 @@ void treeEndvisited2(tnode_p root)
             temp = stackTop(st);
             st = stackPop(st);
         }
-        
-
     }
-
+    stackDestory(st);
 }
 
+void treeDestory(tnode_p root)
+{
+    if(!root) return;
+    treeDestory(root->left);
+    treeDestory(root->right);
+
+    root = NULL;
+}

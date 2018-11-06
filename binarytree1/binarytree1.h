@@ -35,6 +35,7 @@ void visit(tnode_p tnode);
 void Newchecker(tnode_p node);
 int Ischecker(tnode_p node);
 
+
 void treeFrontvisited1(tnode_p root);
 void treeFrontvisited2(tnode_p root);
 
