@@ -1,114 +1,129 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<assert.h>
 
-
-typedef struct Treenode* tnode_p;
-typedef struct snode* snode_p;
-typedef struct stack* stack_p;
-typedef struct Treenode
+struct TreeNode
 {
+    struct TreeNode* left;
+    struct TreeNode*  right;
     int data;
-    tnode_p left;
-    tnode_p right;
-}tnode;
-typedef struct snode
+};
+struct StackNode
 {
-    snode_p next;
-    tnode_p p;
-}snode;
+    struct StackNode*  next;
+    struct TreeNode*  t_pointer;
+};
 
-typedef struct stack
+//int*  Buildtree(int* array,int len);
+struct TreeNode* BuildTree(int data);
+struct StackNode* stackBuild();
+struct StackNode*  stackPush(struct StackNode*  s,struct TreeNode* p);
+struct TreeNode* stackTop(struct StackNode*  s);
+struct StackNode*  stackPop(struct StackNode* s);
+int*  preorder(struct TreeNode* root,int* array);
+int IsEmpty(struct StackNode* s);
+
+/*int main()
 {
-    snode_p top;
-}stack;
-
-tnode_p  buildtree(int data);
-void linknode(tnode_p root,tnode_p left,tnode_p right);
-stack_p initstack();
-void pushstack(stack_p s,tnode_p t);
-tnode_p popstack(stack_p s);
-int* preorder(tnode_p root,int len);
-
-int main()
-{ 
-    tnode_p root  = buildtree(3);
-    tnode_p left1 = buildtree(2);
-    tnode_p right1= buildtree(4);
-    tnode_p left1left = buildtree(1);
-    tnode_p left1right= buildtree(3);
-    tnode_p right1left = buildtree(3);
-    tnode_p right1right = buildtree(5);
-
-    linknode(root,left1,right1);
-    linknode(left1,left1left,left1right);
-    linknode(right1,right1left,right1right);
-
-    int* array = preorder(root,7);
-
-    for(int i=0;i<7;i++)
+    char c;
+    int* array = (int*)malloc(sizeof(int));
+    printf("please stop with '#'");
+    while(c != '#')
     {
-        printf("%d ",array[i]);
+        scanf("%c ",&c);
+        array[p]=c;
+        p++;
+    }
+    Buildtree(array,p);
+    
+    
+
+}*/
+int main()
+{
+    int array[]={1,2,3};
+    struct TreeNode* root = BuildTree(1);
+    struct TreeNode* Right = BuildTree(2);
+    struct TreeNode* Rightleft = BuildTree(3);
+
+    root->left = NULL;
+    root->right = Right;
+    Right->left = Rightleft;
+
+    int* array1 = preorder(root,array);
+    for(int i=0;i<3;i++)
+    {
+        printf("%d ",array1[i]);
     }
     return 0;
 }
-tnode_p buildtree(int data)
+struct TreeNode* BuildTree(int data)
 {
-    tnode_p treenode = (tnode_p) malloc(sizeof(tnode));
-    treenode->left = NULL;
-    treenode->right = NULL;
-    treenode->data = data;
+    struct TreeNode* newnode=(struct TreeNode*)malloc(sizeof(struct TreeNode));
+    newnode->data = data;
+    newnode->left = NULL;
+    newnode->right = NULL;
 
-    return treenode;
-}
-void linknode(tnode_p root, tnode_p left, tnode_p right)
-{
-    root->left = left;
-    root->right = right;
-}
-stack_p initstack()
-{
-    stack_p ins = (stack_p)malloc(sizeof(snode));
-    ins->top = NULL;
+    return newnode;
 
-    return ins;
+}
+struct StackNode* stackBuild()
+{
+    return NULL;
+} 
+struct StackNode* stackPush(struct StackNode* s,struct TreeNode* p)
+{
+    struct StackNode* newnode=(struct StackNode*)malloc(sizeof(struct StackNode));
+    newnode->t_pointer = p;
+    newnode->next = s;
+
+    s= newnode;
+    
+    return s;
 }
 
-void pushstack(stack_p s,tnode_p t)
-{
-    snode_p newnode = (snode_p)malloc(sizeof(snode));
-    newnode->p = t;
-    newnode->next = s->top;
 
-    s->top = newnode; 
-}
-tnode_p popstack(stack_p s)
+struct TreeNode* stackTop(struct StackNode* s)
 {
-    if(s->top == NULL)
+    return s->t_pointer;
+}
+struct StackNode* stackPop(struct StackNode* s)
+{
+    struct StackNode* temp = s;
+    s=s->next;
+    free(temp);
+    return s;
+}
+int IsEmpty(struct StackNode* s)
+{
+    return s==NULL;
+}
+
+
+int* preorder(struct TreeNode* root,int* array)
+{
+    int p =0,l=20;
+    array = (int*)malloc(sizeof(int)*l);
+    struct StackNode* st = stackBuild();
+    struct TreeNode* temp = root;
+
+    while(1)
     {
-        assert(1);
+        if(temp)
+        {
+            if(temp->right) st = stackPush(st,temp->right);
+            array[p]=temp->data;
+            p++;
+            temp=temp->left;
+        }
+        else if(!IsEmpty(st))
+        {
+            temp = stackTop(st);
+            st = stackPop(st);
+        } 
+        else
+        {
+            break;
+        }
     }
-    tnode_p temp = s->top->p;
-    s->top = s->top->next;
-
-    return temp;
+    return array;
 }
-
-int* preorder(tnode_p root,int len)
-{
-    int* array1 = (int*)malloc(sizeof(int)*len);
-    int p=0;
-    stack_p ins = initstack();
-    pushstack(ins,root);
-    while(ins->top != NULL)
-    {
-        root = popstack(ins);
-        array1[p] = root->data;
-        p++;
-        if(root->right != NULL) pushstack(ins ,root->right); 
-        if(root->left != NULL) pushstack(ins,root->left);
-    }
-    return array1;
-}
-
-
