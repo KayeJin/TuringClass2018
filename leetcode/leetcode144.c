@@ -41,6 +41,7 @@ int IsEmpty(struct StackNode* s);
 int main()
 {
     int array[]={1,2,3};
+    int* returnSize;
     struct TreeNode* root = BuildTree(1);
     struct TreeNode* Right = BuildTree(2);
     struct TreeNode* Rightleft = BuildTree(3);
@@ -49,8 +50,8 @@ int main()
     root->right = Right;
     Right->left = Rightleft;
 
-    int* array1 = preorder(root,array);
-    for(int i=0;i<3;i++)
+    int* array1 = preorder(root,returnSize);
+    for(int i=0;i<returnSize;i++)
     {
         printf("%d ",array1[i]);
     }
@@ -99,9 +100,9 @@ int IsEmpty(struct StackNode* s)
 }
 
 
-int* preorder(struct TreeNode* root,int* array)
+int* preorder(struct TreeNode* root,int* returnSize)
 {
-    int p =0,l=20;
+    int l=100;
     array = (int*)malloc(sizeof(int)*l);
     struct StackNode* st = stackBuild();
     struct TreeNode* temp = root;
@@ -111,8 +112,8 @@ int* preorder(struct TreeNode* root,int* array)
         if(temp)
         {
             if(temp->right) st = stackPush(st,temp->right);
-            array[p]=temp->data;
-            p++;
+            array[(*returnSize)]=temp->data;
+            (*returnSize)++;
             temp=temp->left;
         }
         else if(!IsEmpty(st))
